@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#475569"/></marker>
+    <style>
+      .box{fill:#fff;stroke:#cbd5e1;stroke-width:1.5}
+      .llm{fill:#eef2ff;stroke:#6366f1;stroke-width:1.5}
+      .db{fill:#ecfdf5;stroke:#10b981;stroke-width:1.5}
+      .out{fill:#fff7ed;stroke:#f97316;stroke-width:1.5}
+      .t{font-size:15px;font-weight:600;fill:#0f172a}
+      .s{font-size:12px;fill:#475569}
+      .h{font-size:13px;font-weight:700;fill:#64748b;letter-spacing:1px}
+      .l{stroke:#475569;stroke-width:1.6;fill:none;marker-end:url(#a)}
+    </style>
+  </defs>
+  <rect width="960" height="420" rx="16" fill="#f8fafc"/>
+
+  <text x="32" y="44" class="h">1 · INGEST</text>
+  <rect x="32" y="62" width="180" height="70" rx="10" class="box"/>
+  <text x="122" y="92" text-anchor="middle" class="t">Document</text>
+  <text x="122" y="112" text-anchor="middle" class="s">pasted text / sample</text>
+  <rect x="270" y="62" width="200" height="70" rx="10" class="llm"/>
+  <text x="370" y="92" text-anchor="middle" class="t">LLM extraction</text>
+  <text x="370" y="112" text-anchor="middle" class="s">Ollama · entities + relations</text>
+  <rect x="528" y="62" width="200" height="70" rx="10" class="db"/>
+  <text x="628" y="92" text-anchor="middle" class="t">Neo4j graph</text>
+  <text x="628" y="112" text-anchor="middle" class="s">nodes keep source chunk</text>
+  <path d="M212 97 H264" class="l"/>
+  <path d="M470 97 H522" class="l"/>
+
+  <text x="32" y="196" class="h">2 · RETRIEVE &amp; ANSWER</text>
+  <rect x="32" y="214" width="180" height="70" rx="10" class="box"/>
+  <text x="122" y="244" text-anchor="middle" class="t">Question</text>
+  <text x="122" y="264" text-anchor="middle" class="s">natural language</text>
+  <rect x="270" y="214" width="200" height="70" rx="10" class="db"/>
+  <text x="370" y="244" text-anchor="middle" class="t">Seed entities</text>
+  <text x="370" y="264" text-anchor="middle" class="s">match names in graph</text>
+  <rect x="528" y="214" width="200" height="70" rx="10" class="db"/>
+  <text x="628" y="244" text-anchor="middle" class="t">Multi-hop traversal</text>
+  <text x="628" y="264" text-anchor="middle" class="s">facts + provenance</text>
+  <rect x="768" y="214" width="160" height="70" rx="10" class="llm"/>
+  <text x="848" y="244" text-anchor="middle" class="t">LLM answer</text>
+  <text x="848" y="264" text-anchor="middle" class="s">grounded in context</text>
+  <path d="M212 249 H264" class="l"/>
+  <path d="M470 249 H522" class="l"/>
+  <path d="M728 249 H762" class="l"/>
+  <path d="M628 132 V208" class="l" stroke-dasharray="5 4"/>
+
+  <rect x="528" y="326" width="400" height="66" rx="10" class="out"/>
+  <text x="728" y="354" text-anchor="middle" class="t">Answer with [1][2] citations</text>
+  <text x="728" y="374" text-anchor="middle" class="s">source document · exact text span · reasoning path</text>
+  <path d="M848 284 V320" class="l"/>
+</svg>

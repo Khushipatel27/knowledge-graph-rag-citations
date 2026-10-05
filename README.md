@@ -6,6 +6,8 @@ Standard vector RAG retrieves similar chunks, so it struggles when an answer dep
 
 Runs fully local: **Ollama** for the LLM, **Neo4j** for the graph.
 
+![App screenshot](assets/screenshot.png)
+
 ## Features
 
 - **Multi-hop reasoning**: follows entity relationships across documents to answer compound questions
@@ -16,13 +18,7 @@ Runs fully local: **Ollama** for the LLM, **Neo4j** for the graph.
 
 ## How it works
 
-```
-Document ──► LLM extraction ──► Neo4j graph (entities + relationships + source chunk)
-                                        │
-Question ──► find seed entities ──► traverse relationships ──► context + sources
-                                                                      │
-                                              LLM answer with [1][2] citations
-```
+![Architecture](assets/architecture.svg)
 
 1. **Ingest**: the LLM extracts entities (people, orgs, concepts, technologies) and typed relationships from each chunk. Each one is stored with its source document and chunk ID.
 2. **Retrieve**: entities mentioned in the question seed a graph traversal that pulls in connected facts.
@@ -56,14 +52,27 @@ Then open http://localhost:8501. The Neo4j browser is at http://localhost:7474 (
 Prerequisites: Python 3.9+, [Ollama](https://ollama.com), and a running Neo4j instance.
 
 ```bash
+# 1. Pull the model
 ollama pull llama3.2
 
+# 2. Start Neo4j (any one of these)
 docker run -d --name neo4j -p 7474:7474 -p 7687:7687 \
   -e NEO4J_AUTH=neo4j/password neo4j:latest
+#    or Neo4j Desktop (local DB on bolt://localhost:7687)
+#    or a free Neo4j AuraDB instance (use its neo4j+s://... URI in the sidebar)
 
+# 3. Install and run
+python -m venv .venv
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 streamlit run knowledge_graph_rag.py
 ```
+
+Open http://localhost:8501, check the Neo4j settings in the sidebar, then:
+
+1. **Add Documents**: pick a sample document (or paste your own) and click **Extract & Add to Knowledge Graph**.
+2. **Ask Questions**: type a question and click **Ask with Citations**.
+3. **View Graph**: see entity and relationship counts.
 
 ## Configuration
 
@@ -97,7 +106,8 @@ knowledge-graph-rag-citations/
 ├── knowledge_graph_rag.py   # Streamlit app: KnowledgeGraphManager, extraction, cited answering
 ├── requirements.txt
 ├── Dockerfile
-└── docker-compose.yml       # Neo4j + Ollama + app
+├── docker-compose.yml       # Neo4j + Ollama + app
+└── assets/                  # screenshot + architecture diagram
 ```
 
 Key pieces in `knowledge_graph_rag.py`:
